@@ -52,7 +52,7 @@ under the License.
 
     <target name="init">
         <!-- check for applet required classes -->
-        <condition property="noapplet" value="ShipmentScaleApplet.java">
+        <condition property="noapplet" value="main/java/ShipmentScaleApplet.java">
             <not>
                 <and>
                     <available classname="javax.comm.SerialPort" classpathref="local.class.path"/>

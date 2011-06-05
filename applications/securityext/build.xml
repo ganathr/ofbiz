@@ -52,7 +52,7 @@ under the License.
     <target name="init">
         <patternset id="src.exc.set">
             <!-- exclude the Truition; comment if you have libs -->
-            <exclude name="org/ofbiz/securityext/thirdparty/truition/**"/>
+            <exclude name="main/java/org/ofbiz/securityext/thirdparty/truition/**"/>
         </patternset>
     </target>
 

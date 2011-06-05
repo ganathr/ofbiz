@@ -50,9 +50,9 @@ under the License.
     </path>
 
     <patternset id="src.exc.set">
-        <exclude name="org/ofbiz/content/report/JREntityListIteratorDataSource.java"/>
-        <exclude name="org/ofbiz/content/report/JRMapCollectionDataSource.java"/>
-        <exclude name="org/ofbiz/content/openoffice/*.java"/>
+        <exclude name="main/java/org/ofbiz/content/report/JREntityListIteratorDataSource.java"/>
+        <exclude name="main/java/org/ofbiz/content/report/JRMapCollectionDataSource.java"/>
+        <exclude name="main/java/org/ofbiz/content/openoffice/*.java"/>
     </patternset>
 
     <target name="jar" depends="classes">
