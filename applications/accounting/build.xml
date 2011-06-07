@@ -60,10 +60,14 @@ under the License.
             <!-- exclude the payment processor packages; comment this out to not exclude if you have libs -->
             <exclude name="${verisign-exclude}"/>
             <exclude name="main/java/org/ofbiz/accounting/thirdparty/cybersource/**"/>
+	    <exclude name="test/java/org/ofbiz/accounting/thirdparty/cybersource/**"/>
             <exclude name="main/java/org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java"/>
             <exclude name="main/java/org/ofbiz/accounting/thirdparty/orbital/**"/>
+            <exclude name="test/java/org/ofbiz/accounting/thirdparty/orbital/**"/>
             <exclude name="main/java/org/ofbiz/accounting/thirdparty/securepay/**"/>
+ 	    <exclude name="test/java/org/ofbiz/accounting/thirdparty/securepay/**"/>
             <exclude name="main/java/org/ofbiz/accounting/thirdparty/ideal/**"/>
+	    <exclude name="test/java/org/ofbiz/accounting/thirdparty/ideal/**"/>
         </patternset>
     </target>
 
