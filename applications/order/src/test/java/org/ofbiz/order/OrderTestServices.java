@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.order.test;
+package org.ofbiz.order;
 
 import java.math.BigDecimal;
 import java.util.Iterator;

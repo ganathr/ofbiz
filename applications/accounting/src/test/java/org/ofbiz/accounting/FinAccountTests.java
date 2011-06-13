@@ -17,7 +17,7 @@
  under the License.
  */
 
-package org.ofbiz.accounting.test;
+package org.ofbiz.accounting;
 
 import java.math.BigDecimal;
 import java.util.Map;

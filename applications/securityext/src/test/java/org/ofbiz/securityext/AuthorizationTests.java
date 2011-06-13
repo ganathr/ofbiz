@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.securityext.test;
+package org.ofbiz.securityext;
 
 import java.util.Map;
 

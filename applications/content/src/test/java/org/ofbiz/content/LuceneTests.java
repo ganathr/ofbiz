@@ -17,7 +17,7 @@
  under the License.
  */
 
-package org.ofbiz.content.test;
+package org.ofbiz.content;
 
 import java.io.File;
 import java.util.List;

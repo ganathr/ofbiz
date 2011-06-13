@@ -17,7 +17,7 @@
  * under the License.
  *******************************************************************************/
 
- package org.ofbiz.securityext.test;
+ package org.ofbiz.securityext;
 
 import org.ofbiz.base.util.Debug;
 
