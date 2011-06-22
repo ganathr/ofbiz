@@ -25,7 +25,7 @@ under the License.
         <junit-test-suite class-name="org.ofbiz.product.test.StockMovesTest"/>
     </test-case>
     <test-case case-name="inventoryItemTransfer-test">
-        <junit-test-suite class-name="org.ofbiz.product.test.InventoryItemTransferTest"/>
+        <junit-test-suite class-name="org.ofbiz.product.InventoryItemTransferTest"/>
     </test-case>
     <test-case case-name="inventory-tests">
         <simple-method-test location="component://product/script/org/ofbiz/product/test/InventoryTests.xml"/>

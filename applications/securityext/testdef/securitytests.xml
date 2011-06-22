@@ -24,6 +24,6 @@
         <entity-xml action="load" entity-xml-url="component://securityext/testdef/data/SecurityTestData.xml"/>
     </test-case>
     <test-case case-name="security-tests">
-        <junit-test-suite class-name="org.ofbiz.securityext.test.AuthorizationTests"/>
+        <junit-test-suite class-name="org.ofbiz.securityext.AuthorizationTests"/>
     </test-case>
 </test-suite>
