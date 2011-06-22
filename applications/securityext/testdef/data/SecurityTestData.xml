@@ -20,7 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <SecurityPermission permissionId="test:groovy1" dynamicAccess="component://securityext/testdef/da/DaTest1.groovy"/>
-    <SecurityPermission permissionId="test:groovy2" dynamicAccess="org.ofbiz.securityext.test.DaTest2.groovy"/>
+    <SecurityPermission permissionId="test:groovy2" dynamicAccess="test.java.org.ofbiz.securityext.DaTest2.groovy"/>
     <SecurityPermission permissionId="test:service" dynamicAccess="service:dynamicAccessTestService"/>
     <SecurityPermission permissionId="test:recursion" dynamicAccess="service:dynamicAccessRecursiveTest"/>
     <SecurityPermission permissionId="test:autogranted" dynamicAccess=""/>    
