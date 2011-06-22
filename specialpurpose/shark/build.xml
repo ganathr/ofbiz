@@ -45,7 +45,7 @@ under the License.
     </path>
 
     <patternset id="src.exc.set">
-        <exclude name="org/ofbiz/shark/SharkGuiContainer.java"/>
+        <exclude name="main/java/org/ofbiz/shark/SharkGuiContainer.java"/>
     </patternset>
 
     <!-- ================================================================== -->
