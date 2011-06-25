@@ -21,19 +21,19 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-group case-name="basetests">
-        <junit-test-suite class-name="org.ofbiz.base.lang.test.ComparableRangeTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.util.test.IndentingWriterTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.util.test.ObjectTypeTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.util.test.UtilObjectTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.util.string.test.FlexibleStringExpanderTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.util.collections.test.FlexibleMapAccessorTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.util.test.TimeDurationTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.util.cache.test.UtilCacheTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.conversion.test.DateTimeTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.conversion.test.MiscTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.concurrent.test.DependencyPoolTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.json.test.JSONTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.util.test.UtilIOTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.test.BaseUnitTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.lang.ComparableRangeTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.IndentingWriterTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.ObjectTypeTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.UtilObjectTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.string.FlexibleStringExpanderTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.collections.FlexibleMapAccessorTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.TimeDurationTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.cache.UtilCacheTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.conversion.DateTimeTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.conversion.MiscTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.concurrent.DependencyPoolTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.json.JSONTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.UtilIOTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.BaseUnitTests"/>
     </test-group>
 </test-suite>

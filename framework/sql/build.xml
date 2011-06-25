@@ -46,10 +46,10 @@ under the License.
        <pathelement location="src"/>
     </path>
     <filelist id="test.classes" dir="${src.dir}">
-        <file name="org/ofbiz/sql/test/ValuesTest.java"/>
-        <file name="org/ofbiz/sql/test/ConditionsTest.java"/>
-        <file name="org/ofbiz/sql/test/SelectTest.java"/>
-        <file name="org/ofbiz/sql/test/SQLTest.java"/>
+        <file name="test/java/org/ofbiz/sql/ValuesTest.java"/>
+        <file name="test/java/org/ofbiz/sql/ConditionsTest.java"/>
+        <file name="test/java/org/ofbiz/sql/SelectTest.java"/>
+        <file name="test/java/org/ofbiz/sql/SQLTest.java"/>
     </filelist>
 
     <!-- ================================================================== -->
@@ -57,7 +57,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="gen-src">
-        <ofbiz-javacc dir="org/ofbiz/sql" file="Parser"/>
+        <ofbiz-javacc dir="main/java/org/ofbiz/sql" file="Parser"/>
     </target>
 
     <target name="classes" depends="prepare,gen-src">

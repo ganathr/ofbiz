@@ -41,8 +41,8 @@ under the License.
     </path>
 
     <patternset id="src.exc.set">
-        <exclude name="org/ofbiz/entity/connection/XaPoolConnectionFactory.java"/>
-        <exclude name="org/ofbiz/entity/connection/TyrexConnectionFactory.java"/>
+        <exclude name="main/java/org/ofbiz/entity/connection/XaPoolConnectionFactory.java"/>
+        <exclude name="main/java/org/ofbiz/entity/connection/TyrexConnectionFactory.java"/>
     </patternset>
 
     <target name="jar" depends="classes">

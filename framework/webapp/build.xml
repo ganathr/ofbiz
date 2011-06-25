@@ -47,17 +47,17 @@ under the License.
 
     <patternset id="src.exc.set">
         <!-- JasperReports dependent files -->
-        <exclude name="org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java"/>
-        <exclude name="org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java"/>
-        <exclude name="org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java"/>
-        <exclude name="org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java"/>
+        <exclude name="main/java/org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java"/>
+        <exclude name="main/java/org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java"/>
+        <exclude name="main/java/org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java"/>
+        <exclude name="main/java/org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java"/>
         <!-- JPublish/EdenLib dependent files -->
-        <exclude name="org/ofbiz/webapp/view/GenericViewRenderer.java"/>
-        <exclude name="org/ofbiz/webapp/view/JPublishViewHandler.java"/>
-        <exclude name="org/ofbiz/webapp/view/JPublishWrapper.java"/>
-        <exclude name="org/ofbiz/webapp/view/FopPdfViewHandler.java"/>
-        <exclude name="org/ofbiz/webapp/ftl/FreeMarkerViewRenderer.java"/>
-        <exclude name="org/ofbiz/webapp/ftl/JpCacheIncludeTransform.java"/>
+        <exclude name="main/java/org/ofbiz/webapp/view/GenericViewRenderer.java"/>
+        <exclude name="main/java/org/ofbiz/webapp/view/JPublishViewHandler.java"/>
+        <exclude name="main/java/org/ofbiz/webapp/view/JPublishWrapper.java"/>
+        <exclude name="main/java/org/ofbiz/webapp/view/FopPdfViewHandler.java"/>
+        <exclude name="main/java/org/ofbiz/webapp/ftl/FreeMarkerViewRenderer.java"/>
+        <exclude name="main/java/org/ofbiz/webapp/ftl/JpCacheIncludeTransform.java"/>
     </patternset>
 
     <target name="jar" depends="classes">
