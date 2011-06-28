@@ -83,7 +83,7 @@ under the License.
     </target>
 
     <target name="gen-src">
-        <ofbiz-javacc dir="main/java/org/ofbiz/base/json" file="JSON"/>
+        <ofbiz-javacc dir="org/ofbiz/base/json" file="JSON"/>
     </target>
 
     <target name="classes" depends="prepare,gen-src">

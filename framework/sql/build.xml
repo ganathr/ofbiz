@@ -57,7 +57,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="gen-src">
-        <ofbiz-javacc dir="main/java/org/ofbiz/sql" file="Parser"/>
+        <ofbiz-javacc dir="org/ofbiz/sql" file="Parser"/>
     </target>
 
     <target name="classes" depends="prepare,gen-src">

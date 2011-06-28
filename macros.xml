@@ -204,13 +204,13 @@ under the License.
    <if>
      <not>
       <uptodate
-       srcfile="@{prefix}src/@{dir}/@{file}.jj"
+       srcfile="@{prefix}src/main/java/@{dir}/@{file}.jj"
        targetfile="@{prefix}build/gen-src/javacc/@{dir}/@{file}.java"/>
      </not>
      <then>
        <delete dir="@{prefix}build/gen-src/javacc/@{dir}"/>
        <mkdir dir="@{prefix}build/gen-src/javacc/@{dir}"/>
-       <javacc target="@{prefix}src/@{dir}/@{file}.jj"
+       <javacc target="@{prefix}src/main/java/@{dir}/@{file}.jj"
           javacchome="${ofbiz.home.dir}/lib/build/javacc"
           outputdirectory="@{prefix}build/gen-src/javacc/@{dir}"/>
        <replace token="public class" 
@@ -231,12 +231,12 @@ under the License.
    <if>
      <not>
       <uptodate
-       srcfile="@{prefix}src/@{dir}/@{file}.jjt"
+       srcfile="@{prefix}src/main/java/@{dir}/@{file}.jjt"
        targetfile="@{prefix}build/gen-src/jjtree/@{dir}/@{file}.jj"/>
      </not>
      <delete dir="@{prefix}build/gen-src/jjtree/@{dir}"/>
      <mkdir dir="@{prefix}build/gen-src/jjtree/@{dir}"/>
-     <jjtree target="@{prefix}src/@{dir}/@{file}.jjt"
+     <jjtree target="@{prefix}src/main/java/@{dir}/@{file}.jjt"
       javacchome="${ofbiz.home.dir}/lib/build/javacc"
       outputdirectory="@{prefix}build/gen-src/jjtree/@{dir}"/>
    </if>
