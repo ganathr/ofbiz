@@ -70,6 +70,11 @@ under the License.
                 <available classname="javax.crypto.Cipher" classpathref="local.class.path"/>
             </not>
         </condition>
+		<condition property="exclude.crypto" value="test/java/org/ofbiz/base/crypto/**">
+            <not>
+                <available classname="javax.crypto.Cipher" classpathref="local.class.path"/>
+            </not>
+        </condition>
         <condition property="exclude.cobertura" value="main/java/org/ofbiz/base/config/Cobertura*.java">
             <not>
                 <available classname="net.sourceforge.cobertura.instrument.ClassInstrumenter" classpathref="local.class.path"/>
