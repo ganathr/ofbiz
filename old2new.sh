@@ -60,8 +60,10 @@ do
 					for x in $(ls main/java/$test/test/)
 					do
 						echo $x
-						sed 's/\.test;/;/' <main/java/$test/test/$x >temp
-						cat temp >main/java/$test/test/$x						
+						sed 's/\.test;/;/' <main/java/$test/test/$x >temp						
+						cat temp >main/java/$test/test/$x	
+						sed 's/\.test\./\./' <main/java/$test/test/$x >temp
+						cat temp >main/java/$test/test/$x					
 					done
 					rm temp
 
