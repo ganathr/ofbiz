@@ -55,8 +55,19 @@ do
 					test=$(echo $test | replace test '')
 					mkdir -p $test
 					cd ../../
-					cp main/java/$test/test/*  test/java/$test
+					
+	
+					for x in $(ls main/java/$test/test/)
+					do
+						echo $x
+						sed 's/\.test;/;/' <main/java/$test/test/$x >temp
+						cat temp >main/java/$test/test/$x						
+					done
+					rm temp
+
+					cp main/java/$test/test/*  test/java/$test/
 					rm -r main/java/$test/test/
+				
 				done
 				
 				git add main/ test/
