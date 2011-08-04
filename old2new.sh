@@ -20,71 +20,83 @@
 
 OFBIZ_HOME=$(pwd)
 
+sed 's/@{prefix}src/@{prefix}src\/main\/java/' <macros.xml >temp						
+cat temp >macros.xml
+rm temp
+
 for i in applications specialpurpose framework
 do
 	#echo $i
 cd $i
 
-for dir in $(ls .)
-do
-	#echo $dir
+	for dir in $(ls .)
+	do
+		#echo $dir
 	
-	if [ $dir != .. ]	
-	then
-		if [ -d $dir ]
+		if [ $dir != .. ]	
 		then
-			cd $dir
-			#echo $dir
-	
-			if [ -d src/ ]
+			if [ -d $dir ]
 			then
-				echo $dir
-				cd src/
-				SRC=$(pwd)
+				cd $dir
+				#echo $dir
+	
+				if [ -d src/ ]
+				then
+					echo $dir
+					cd src/
+					SRC=$(pwd)
 
-				mkdir -p main/java/ test/java/
-				cp -r org/ main/java/
+					mkdir -p main/java/ test/java/
+					cp -r org/ main/java/
 				
-				cd main/java/
-				testdirs=$(find ./ | grep /test$)
-				cd ../../
-
-				for test in $testdirs
-				do
-					cd test/java/
-					test=$(echo $test | replace test '')
-					mkdir -p $test
+					cd main/java/
+					testdirs=$(find ./ | grep /test$)
 					cd ../../
+
+					for test in $testdirs
+					do
+						cd test/java/
+						test=$(echo $test | replace test '')
+						mkdir -p $test
+						cd ../../
 					
 	
-					for x in $(ls main/java/$test/test/)
-					do
-						echo $x
-						sed 's/\.test;/;/' <main/java/$test/test/$x >temp						
-						cat temp >main/java/$test/test/$x	
-						sed 's/\.test\./\./' <main/java/$test/test/$x >temp
-						cat temp >main/java/$test/test/$x					
-					done
-					rm temp
-
-					cp main/java/$test/test/*  test/java/$test/
-					rm -r main/java/$test/test/
-				
-				done
-				
-				git add main/ test/
-				git rm -r org/
+						for x in $(ls main/java/$test/test/)
+						do
+							echo $x
+							sed 's/\.test;/;/' <main/java/$test/test/$x >temp						
+							cat temp >main/java/$test/test/$x
 						
+							if [ $dir eq 'base' ]
+							then
+								sed 's/\.test\./\./' <main/java/$test/test/$x >temp
+								cat temp >main/java/$test/test/$x	
+							fi
+		
+						done
+						rm temp
+
+						cp main/java/$test/test/*  test/java/$test/
+						rm -r main/java/$test/test/
+				
+					done
+				
+					git add main/ test/
+					git rm -r org/
+						
+					cd ..
+
+					#sed 's/\/test\//\//' <build.xml >temp
+					#cat temp >build.xml
+					#rm temp
+
+				fi
+
 				cd ..
-			fi
+			fi		
+		fi
 
-			cd ..
-		fi		
-	fi
-
-done
-
+	done
 cd ..
 done 
-
 
