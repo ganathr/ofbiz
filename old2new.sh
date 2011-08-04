@@ -57,9 +57,10 @@ cd $i
 					do
 						cd test/java/
 						test=$(echo $test | replace test '')
+						test=`expr substr $test 3 100`
 						mkdir -p $test
 						cd ../../
-					
+						
 	
 						for x in $(ls main/java/$test/test/)
 						do
@@ -67,11 +68,12 @@ cd $i
 							sed 's/\.test;/;/' <main/java/$test/test/$x >temp						
 							cat temp >main/java/$test/test/$x
 						
-							if [ $dir eq 'base' ]
-							then
-								sed 's/\.test\./\./' <main/java/$test/test/$x >temp
-								cat temp >main/java/$test/test/$x	
-							fi
+							sed 's/\.test\./\./' <main/java/$test/test/$x >temp
+							cat temp >main/java/$test/test/$x
+	
+							echo $test
+							sed "s#${test}test/#test/java/${test}#p" <../build.xml >temp
+							cat temp >../build.xml
 		
 						done
 						rm temp
@@ -85,7 +87,7 @@ cd $i
 					git rm -r org/
 						
 					cd ..
-
+										
 					#sed 's/\/test\//\//' <build.xml >temp
 					#cat temp >build.xml
 					#rm temp
