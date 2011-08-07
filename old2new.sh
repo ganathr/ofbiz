@@ -33,21 +33,22 @@ cd $i
 	do
 		#echo $dir
 	
-		if [ $dir != .. ]	
+		if [ $dir != .. ];	
 		then
 			if [ -d $dir ]
 			then
 				cd $dir
 				#echo $dir
-	
-				if [ -d src/ ]
+
+				if [ -d src/ ];
 				then
 					
 					sed "s#org/ofbiz/#main/java/org/ofbiz/#g" <build.xml >temp
 					cat temp >build.xml					
 
-					if [ $dir='base' ]
+					if [ $dir = 'base' ];
 					then
+						echo $dir
 						sed 's/\.test\./\./' <build.xml >temp
 						cat temp >build.xml	
 
@@ -82,8 +83,8 @@ cd $i
 							sed 's/\.test;/;/' <main/java/$test/test/$x >temp						
 							cat temp >main/java/$test/test/$x
 						
-							i=`expr "$test" : 'org/ofbiz/base'`
-							if [ i != 0 ]
+							j=`expr "$test" : 'org/ofbiz/base'`
+							if [ $j != 0 ];
 							then
 								sed 's/\.test\./\./' <main/java/$test/test/$x >temp
 								cat temp >main/java/$test/test/$x	
@@ -106,8 +107,13 @@ cd $i
 						
 					cd ..
 
-				fi
-
+				elif [ $dir = 'documents' ];
+				then
+					echo $dir
+					sed 's/\.test\./\./' <UnitTest.xml >temp
+					cat temp >UnitTest.xml
+					rm temp		
+				fi				
 				cd ..
 			fi		
 		fi
