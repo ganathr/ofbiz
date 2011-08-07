@@ -44,8 +44,17 @@ cd $i
 				then
 					
 					sed "s#org/ofbiz/#main/java/org/ofbiz/#g" <build.xml >temp
-					cat temp >build.xml
-					rm temp
+					cat temp >build.xml					
+
+					if [ $dir='base' ]
+					then
+						sed 's/\.test\./\./' <build.xml >temp
+						cat temp >build.xml	
+
+						sed 's/\.test\./\./' <config/test-containers.xml >temp
+						cat temp >config/test-containers.xml
+					fi
+					rm temp				
 
 					echo $dir
 					cd src/
@@ -73,9 +82,13 @@ cd $i
 							sed 's/\.test;/;/' <main/java/$test/test/$x >temp						
 							cat temp >main/java/$test/test/$x
 						
-							sed 's/\.test\./\./' <main/java/$test/test/$x >temp
-							cat temp >main/java/$test/test/$x
-	
+							i=`expr "$test" : 'org/ofbiz/base'`
+							if [ i != 0 ]
+							then
+								sed 's/\.test\./\./' <main/java/$test/test/$x >temp
+								cat temp >main/java/$test/test/$x	
+							fi	
+
 							echo $test
 							sed "s#main/java/${test}test/#test/java/${test}#g" <../build.xml >temp  # ./org/ofbiz does not match
 							cat temp >../build.xml
@@ -92,10 +105,6 @@ cd $i
 					git rm -r org/
 						
 					cd ..
-										
-					#sed 's/\/test\//\//' <build.xml >temp
-					#cat temp >build.xml
-					#rm temp
 
 				fi
 
