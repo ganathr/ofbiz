@@ -42,6 +42,11 @@ cd $i
 	
 				if [ -d src/ ]
 				then
+					
+					sed "s#org/ofbiz/#main/java/org/ofbiz/#g" <build.xml >temp
+					cat temp >build.xml
+					rm temp
+
 					echo $dir
 					cd src/
 					SRC=$(pwd)
@@ -72,7 +77,7 @@ cd $i
 							cat temp >main/java/$test/test/$x
 	
 							echo $test
-							sed "s#${test}test/#test/java/${test}#p" <../build.xml >temp
+							sed "s#main/java/${test}test/#test/java/${test}#g" <../build.xml >temp  # ./org/ofbiz does not match
 							cat temp >../build.xml
 		
 						done
