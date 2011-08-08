@@ -38,23 +38,76 @@ cd $i
 			if [ -d $dir ]
 			then
 				cd $dir
-				#echo $dir
+				echo $dir
 
 				if [ -d src/ ];
 				then
 					
 					sed "s#org/ofbiz/#main/java/org/ofbiz/#g" <build.xml >temp
-					cat temp >build.xml					
+					cat temp >build.xml	
 
-					if [ $dir = 'base' ];
+					if [ $dir = 'service' ];
 					then
-						echo $dir
+						sed 's/\.test\./\./' <servicedef/services_test_se.xml >temp
+						cat temp >servicedef/services_test_se.xml
+
+						sed 's/\.test\./\./' <testdef/servicetests.xml >temp
+						cat temp >testdef/servicetests.xml
+
+					elif [ $dir = 'minilang' ];
+					then
+						sed 's/\.test\./\./' <testdef/MinilangTests.xml >temp
+						cat temp >testdef/MinilangTests.xml
+
+					elif [ $dir = 'entity' ];
+					then
+						sed 's/\.test\./\./' <testdef/entitytests.xml >temp
+						cat temp >testdef/entitytests.xml				
+
+					elif [ $dir = 'base' ];
+					then
 						sed 's/\.test\./\./' <build.xml >temp
 						cat temp >build.xml	
 
 						sed 's/\.test\./\./' <config/test-containers.xml >temp
 						cat temp >config/test-containers.xml
-					fi
+
+						sed 's/\.test\./\./' <testdef/basetests.xml >temp
+						cat temp >testdef/basetests.xml															
+
+					elif [ $dir = 'securityext' ];	
+					then
+						sed 's/\.test\./\./' <testdef/securitytests.xml >temp
+						cat temp >testdef/securitytests.xml
+
+						sed 's/\.test\./\./' <testdef/data/SecurityTestData.xml >temp
+						cat temp >testdef/data/SecurityTestData.xml
+
+					elif [ $dir = 'product' ];	
+					then
+						sed 's/\.test\./\./' <testdef/FacilityTest.xml >temp
+						cat temp >testdef/FacilityTest.xml
+
+					elif [ $dir = 'order' ];
+					then
+						sed 's/\.test\./\./' <servicedef/services.xml >temp
+						cat temp >servicedef/services.xml
+
+						sed 's/\.test\./\./' <testdef/OrderTest.xml >temp
+						cat temp >testdef/OrderTest.xml
+
+					elif [ $dir = 'content' ];	
+					then
+						sed 's/\.test\./\./' <testdef/lucenetests.xml >temp
+						cat temp >testdef/lucenetests.xml		
+	
+					elif [ $dir = 'accounting' ];	
+					then
+						sed 's/\.test\./\./' <testdef/accountingtests.xml >temp
+						cat temp >testdef/accountingtests.xml		
+					
+					fi	
+
 					rm temp				
 
 					echo $dir
@@ -83,12 +136,8 @@ cd $i
 							sed 's/\.test;/;/' <main/java/$test/test/$x >temp						
 							cat temp >main/java/$test/test/$x
 						
-							j=`expr "$test" : 'org/ofbiz/base'`
-							if [ $j != 0 ];
-							then
-								sed 's/\.test\./\./' <main/java/$test/test/$x >temp
-								cat temp >main/java/$test/test/$x	
-							fi	
+							sed 's/\.test\./\./' <main/java/$test/test/$x >temp
+							cat temp >main/java/$test/test/$x	
 
 							echo $test
 							sed "s#main/java/${test}test/#test/java/${test}#g" <../build.xml >temp  # ./org/ofbiz does not match
