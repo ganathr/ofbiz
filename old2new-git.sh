@@ -143,31 +143,13 @@ cd $i
 							cat temp >../build.xml
 		
 						done
-						rm temp						
+						rm temp
 
 						rsync main/java/$test/test/  test/java/$test/ -a
 						rm -r main/java/$test/test/
 				
 					done
-
-					if [ $dir = 'content' ];	
-					then
-						git mv ControlApplet.java main/java/
-					
-					elif [ $dir = 'accounting' ];
-					then
-						mkdir -p test/java/org/ofbiz/accounting/thirdparty/clearcommerce/
-						mkdir test/java/org/ofbiz/accounting/thirdparty/ideal/
-						mkdir test/java/org/ofbiz/accounting/thirdparty/securepay/
-						mv main/java/org/ofbiz/accounting/thirdparty/clearcommerce/CCServicesTest.java test/java/org/ofbiz/accounting/thirdparty/clearcommerce/
-						mv main/java/org/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java test/java/org/ofbiz/accounting/thirdparty/ideal/
-						mv main/java/org/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java test/java/org/ofbiz/accounting/thirdparty/securepay/
-					elif [ $dir = 'product' ];
-					then
-						mkdir -p test/java/org/ofbiz/shipment/thirdparty/usps/
-						mv main/java/org/ofbiz/shipment/thirdparty/usps/UspsServicesTests.java test/java/org/ofbiz/shipment/thirdparty/usps/
-					fi					
-
+				
 					git add main/ test/
 					git rm -r org/
 						
