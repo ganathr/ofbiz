@@ -43,67 +43,67 @@ cd $i
 				if [ -d src/ ];
 				then
 					
-					sed 's,org/ofbiz/,main/java/org/ofbiz/,g' <build.xml >temp
+					sed "s,org/ofbiz/,main/java/org/ofbiz/,g" <build.xml >temp
 					cat temp >build.xml	
 
 					if [ $dir = 'service' ];
 					then
-						sed 's,.test.,.,g' <servicedef/services_test_se.xml >temp
+						sed 's,\.test\.,\.,g' <servicedef/services_test_se.xml >temp
 						cat temp >servicedef/services_test_se.xml
 
-						sed 's,.test.,.,g' <testdef/servicetests.xml >temp
+						sed 's,\.test\.,\.,g' <testdef/servicetests.xml >temp
 						cat temp >testdef/servicetests.xml
 
 					elif [ $dir = 'minilang' ];
 					then
-						sed 's,.test.,.,g' <testdef/MinilangTests.xml >temp
+						sed 's,\.test\.,\.,g' <testdef/MinilangTests.xml >temp
 						cat temp >testdef/MinilangTests.xml
 
 					elif [ $dir = 'entity' ];
 					then
-						sed 's,.test.,.,g' <testdef/entitytests.xml >temp
+						sed 's,\.test\.,\.,g' <testdef/entitytests.xml >temp
 						cat temp >testdef/entitytests.xml				
 
 					elif [ $dir = 'base' ];
 					then
-						sed 's,.test.,.,g' <build.xml >temp
+						sed 's,\.test\.,\.,g' <build.xml >temp
 						cat temp >build.xml	
 
-						sed 's,.test.,.,g' <config/test-containers.xml >temp
+						sed 's,\.test\.,\.,g' <config/test-containers.xml >temp
 						cat temp >config/test-containers.xml
 
-						sed 's,.test.,.,g' <testdef/basetests.xml >temp
+						sed 's,\.test\.,\.,g' <testdef/basetests.xml >temp
 						cat temp >testdef/basetests.xml															
 
 					elif [ $dir = 'securityext' ];	
 					then
-						sed 's,.test.,.,g' <testdef/securitytests.xml >temp
+						sed 's,\.test\.,\.,g' <testdef/securitytests.xml >temp
 						cat temp >testdef/securitytests.xml
 
-						sed 's,.test.,.,g' <testdef/data/SecurityTestData.xml >temp
+						sed 's,\.test\.,\.,g' <testdef/data/SecurityTestData.xml >temp
 						cat temp >testdef/data/SecurityTestData.xml
 
 					elif [ $dir = 'product' ];	
 					then
-						sed 's,.test.,.,g' <testdef/FacilityTest.xml >temp
+						sed 's,\.test\.,\.,g' <testdef/FacilityTest.xml >temp
 						cat temp >testdef/FacilityTest.xml
 
 					elif [ $dir = 'order' ];
 					then
-						sed 's,.test.,.,g' <servicedef/services.xml >temp
+						sed 's,\.test\.,\.,g' <servicedef/services.xml >temp
 						cat temp >servicedef/services.xml
 
-						sed 's,.test.,.,g' <testdef/OrderTest.xml >temp
+						sed 's,\.test\.,\.,g' <testdef/OrderTest.xml >temp
 						cat temp >testdef/OrderTest.xml
 
 					elif [ $dir = 'content' ];	
 					then
-						sed 's,.test.,.,g' <testdef/lucenetests.xml >temp
+						sed 's,\.test\.,\.,g' <testdef/lucenetests.xml >temp
 						cat temp >testdef/lucenetests.xml		
 	
 					elif [ $dir = 'accounting' ];	
 					then
-						sed 's,.test.,.,g' <testdef/accountingtests.xml >temp
+						sed 's,\.test\.,\.,g' <testdef/accountingtests.xml >temp
 						cat temp >testdef/accountingtests.xml		
 					
 					fi	
@@ -132,10 +132,10 @@ cd $i
 						for x in $(ls main/java/$test/test/)
 						do
 							echo $x
-							sed 's,.test;,;,' <main/java/$test/test/$x >temp						
+							sed 's,\.test;,;,' <main/java/$test/test/$x >temp						
 							cat temp >main/java/$test/test/$x
 						
-							sed 's,.test.,.,g' <main/java/$test/test/$x >temp
+							sed 's,\.test\.,\.,g' <main/java/$test/test/$x >temp
 							cat temp >main/java/$test/test/$x	
 
 							echo $test
@@ -143,13 +143,31 @@ cd $i
 							cat temp >../build.xml
 		
 						done
-						rm temp
+						rm temp						
 
 						rsync main/java/$test/test/  test/java/$test/ -a
 						rm -r main/java/$test/test/
 				
 					done
-				
+
+					if [ $dir = 'content' ];	
+					then
+						git mv ControlApplet.java main/java/
+					
+					elif [ $dir = 'accounting' ];
+					then
+						mkdir -p test/java/org/ofbiz/accounting/thirdparty/clearcommerce/
+						mkdir test/java/org/ofbiz/accounting/thirdparty/ideal/
+						mkdir test/java/org/ofbiz/accounting/thirdparty/securepay/
+						mv main/java/org/ofbiz/accounting/thirdparty/clearcommerce/CCServicesTest.java test/java/org/ofbiz/accounting/thirdparty/clearcommerce/
+						mv main/java/org/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java test/java/org/ofbiz/accounting/thirdparty/ideal/
+						mv main/java/org/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java test/java/org/ofbiz/accounting/thirdparty/securepay/
+					elif [ $dir = 'product' ];
+					then
+						mkdir -p test/java/org/ofbiz/shipment/thirdparty/usps/
+						mv main/java/org/ofbiz/shipment/thirdparty/usps/UspsServicesTests.java test/java/org/ofbiz/shipment/thirdparty/usps/
+					fi					
+
 					git add main/ test/
 					git rm -r org/
 						
@@ -158,7 +176,7 @@ cd $i
 				elif [ $dir = 'documents' ];
 				then
 					echo $dir
-					sed 's,.test.,.,g' <UnitTest.xml >temp
+					sed 's,\.test\.,\.,g' <UnitTest.xml >temp
 					cat temp >UnitTest.xml
 					rm temp		
 				fi				
