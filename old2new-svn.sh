@@ -38,13 +38,79 @@ cd $i
 			if [ -d $dir ]
 			then
 				cd $dir
-				echo $dir
+				#echo $dir
 
 				if [ -d src/ ];
 				then
 					
 					sed "s,org/ofbiz/,main/java/org/ofbiz/,g" <build.xml >temp
-					cat temp >build.xml	
+					cat temp >build.xml										
+
+					#echo $dir
+					cd src/
+					SRC=$(pwd)
+
+					testdirs=$(find ./ -type d -name test -printf '%P\n' | sort -r)	
+
+					mkdir -p main/java/ test/java/
+					svn add main/java/ test/java/
+
+					if [ $dir = 'content' ];	
+					then
+						svn mv ControlApplet.java main/java/
+					
+					elif [ $dir = 'accounting' ];
+					then
+						mkdir -p test/java/org/ofbiz/accounting/thirdparty/clearcommerce/
+						svn add test/java/org/ofbiz/accounting/thirdparty/clearcommerce/ 
+						mkdir test/java/org/ofbiz/accounting/thirdparty/ideal/
+						svn add test/java/org/ofbiz/accounting/thirdparty/ideal/
+						mkdir test/java/org/ofbiz/accounting/thirdparty/securepay/
+						svn add test/java/org/ofbiz/accounting/thirdparty/securepay/
+						svn mv org/ofbiz/accounting/thirdparty/clearcommerce/CCServicesTest.java test/java/org/ofbiz/accounting/thirdparty/clearcommerce/
+						svn mv org/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java test/java/org/ofbiz/accounting/thirdparty/ideal/
+						svn mv org/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java test/java/org/ofbiz/accounting/thirdparty/securepay/
+					
+					elif [ $dir = 'product' ];
+					then
+						svn mv ShipmentScaleApplet.java main/java/
+
+						mkdir -p test/java/org/ofbiz/shipment/thirdparty/usps/
+						svn add test/java/org/ofbiz/shipment/thirdparty/usps/
+						svn mv org/ofbiz/shipment/thirdparty/usps/UspsServicesTests.java test/java/org/ofbiz/shipment/thirdparty/usps/
+					fi									
+
+					for test in $testdirs
+					do
+						test=$(echo $test | replace test '')
+
+						mkdir -p test/java/$test
+						svn add test/java/$test				
+	
+						for x in $(ls $test/test/)
+						do
+							echo $x
+							sed 's,\.test;,;,' <$test/test/$x >temp						
+							cat temp >$test/test/$x
+						
+							sed 's,\.test\.,\.,g' <$test/test/$x >temp
+							cat temp >$test/test/$x	
+
+							echo $test
+							sed "s#main/java/${test}test/#test/java/${test}#g" <../build.xml >temp  # ./org/ofbiz does not match
+							cat temp >../build.xml
+		
+						done
+						rm temp						
+
+						svn mv ${test}test/* test/java/${test}
+						svn rm -r ${test}test/
+				
+					done										
+
+					svn mv org/ main/java/
+						
+					cd ..
 
 					if [ $dir = 'service' ];
 					then
@@ -67,6 +133,9 @@ cd $i
 					elif [ $dir = 'base' ];
 					then
 						sed 's,\.test\.,\.,g' <build.xml >temp
+						cat temp >build.xml
+
+						sed 's,main/java/org/ofbiz/base/json,org/ofbiz/base/json,g' <build.xml >temp
 						cat temp >build.xml	
 
 						sed 's,\.test\.,\.,g' <config/test-containers.xml >temp
@@ -88,6 +157,9 @@ cd $i
 						sed 's,\.test\.,\.,g' <testdef/FacilityTest.xml >temp
 						cat temp >testdef/FacilityTest.xml
 
+						sed 's,ShipmentScaleApplet,main/java/ShipmentScaleApplet,g' <build.xml >temp
+						cat temp >build.xml
+
 					elif [ $dir = 'order' ];
 					then
 						sed 's,\.test\.,\.,g' <servicedef/services.xml >temp
@@ -104,74 +176,23 @@ cd $i
 					elif [ $dir = 'accounting' ];	
 					then
 						sed 's,\.test\.,\.,g' <testdef/accountingtests.xml >temp
-						cat temp >testdef/accountingtests.xml		
+						cat temp >testdef/accountingtests.xml
+
+						sed 's,main/java/org/ofbiz/accounting/thirdparty/ideal,\*\*/java/org/ofbiz/accounting/thirdparty/ideal,g'<build.xml >temp
+						cat temp >build.xml			
 					
+					elif [ $dir = 'sql' ];
+					then
+						sed 's,main/java/org/ofbiz/sql,org/ofbiz/sql,g' <build.xml >temp
+						cat temp >build.xml	
+
+					elif [ $dir = 'start' ];
+					then					
+						sed 's,org/ofbiz/base/start/,main/java/org/ofbiz/base/start/,g' <src/main/java/org/ofbiz/base/start/Config.java >temp
+						cat temp >src/main/java/org/ofbiz/base/start/Config.java					
 					fi	
-
-					rm temp				
-
-					echo $dir
-					cd src/
-					SRC=$(pwd)
-
-					mkdir -p main/java/ test/java/
-					rsync org/ main/java/org/ -a --exclude '.svn'
-				
-					cd main/java/
-					testdirs=$(find ./ -type d -name test -printf '%P\n' | sort -r)
-					cd ../../
-
-					for test in $testdirs
-					do
-						cd test/java/
-						test=$(echo $test | replace test '')
-						mkdir -p $test
-						cd ../../
-						
 	
-						for x in $(ls main/java/$test/test/)
-						do
-							echo $x
-							sed 's,\.test;,;,' <main/java/$test/test/$x >temp						
-							cat temp >main/java/$test/test/$x
-						
-							sed 's,\.test\.,\.,g' <main/java/$test/test/$x >temp
-							cat temp >main/java/$test/test/$x	
-
-							echo $test
-							sed "s#main/java/${test}test/#test/java/${test}#g" <../build.xml >temp  # ./org/ofbiz does not match
-							cat temp >../build.xml
-		
-						done
-						rm temp						
-
-						rsync main/java/$test/test/  test/java/$test/ -a --exclude '.svn'
-						rm -r main/java/$test/test/
-				
-					done
-
-					if [ $dir = 'content' ];	
-					then
-						svn mv ControlApplet.java main/java/
-					
-					elif [ $dir = 'accounting' ];
-					then
-						mkdir -p test/java/org/ofbiz/accounting/thirdparty/clearcommerce/
-						mkdir test/java/org/ofbiz/accounting/thirdparty/ideal/
-						mkdir test/java/org/ofbiz/accounting/thirdparty/securepay/
-						mv main/java/org/ofbiz/accounting/thirdparty/clearcommerce/CCServicesTest.java test/java/org/ofbiz/accounting/thirdparty/clearcommerce/
-						mv main/java/org/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java test/java/org/ofbiz/accounting/thirdparty/ideal/
-						mv main/java/org/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java test/java/org/ofbiz/accounting/thirdparty/securepay/
-					elif [ $dir = 'product' ];
-					then
-						mkdir -p test/java/org/ofbiz/shipment/thirdparty/usps/
-						mv main/java/org/ofbiz/shipment/thirdparty/usps/UspsServicesTests.java test/java/org/ofbiz/shipment/thirdparty/usps/
-					fi					
-
-					svn add main/ test/
-					svn rm -r org/
-						
-					cd ..
+					rm temp
 
 				elif [ $dir = 'documents' ];
 				then
