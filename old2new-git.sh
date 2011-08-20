@@ -146,6 +146,9 @@ cd $i
 						sed 's,\.test\.,\.,g' <testdef/data/SecurityTestData.xml >temp
 						cat temp >testdef/data/SecurityTestData.xml
 
+						sed 's,org\.ofbiz\.securityext\.DaTest2\.groovy,test\.java\.org\.ofbiz\.securityext\.DaTest2\.groovy,g' <testdef/data/SecurityTestData.xml >temp
+						cat temp >testdef/data/SecurityTestData.xml
+
 					elif [ $dir = 'product' ];	
 					then
 						sed 's,\.test\.,\.,g' <testdef/FacilityTest.xml >temp
@@ -173,7 +176,10 @@ cd $i
 						cat temp >testdef/accountingtests.xml
 
 						sed 's,main/java/org/ofbiz/accounting/thirdparty/ideal,\*\*/java/org/ofbiz/accounting/thirdparty/ideal,g'<build.xml >temp
-						cat temp >build.xml			
+						cat temp >build.xml		
+	
+						sed 's,main/java/org/ofbiz/accounting/thirdparty/securepay,\*\*/java/org/ofbiz/accounting/thirdparty/securepay,g'<build.xml >temp
+						cat temp >build.xml	
 					
 					elif [ $dir = 'sql' ];
 					then
