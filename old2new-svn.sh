@@ -52,40 +52,26 @@ cd $i
 
 					testdirs=$(find ./ -type d -name test -printf '%P\n' | sort -r)	
 
-					mkdir -p main/java/ test/java/
-					svn add main/java/ test/java/
-
 					if [ $dir = 'content' ];	
 					then
-						svn mv ControlApplet.java main/java/
+						svn mv --parents ControlApplet.java main/java/ControlApplet.java
 					
 					elif [ $dir = 'accounting' ];
 					then
-						mkdir -p test/java/org/ofbiz/accounting/thirdparty/clearcommerce/
-						svn add test/java/org/ofbiz/accounting/thirdparty/clearcommerce/ 
-						mkdir test/java/org/ofbiz/accounting/thirdparty/ideal/
-						svn add test/java/org/ofbiz/accounting/thirdparty/ideal/
-						mkdir test/java/org/ofbiz/accounting/thirdparty/securepay/
-						svn add test/java/org/ofbiz/accounting/thirdparty/securepay/
-						svn mv org/ofbiz/accounting/thirdparty/clearcommerce/CCServicesTest.java test/java/org/ofbiz/accounting/thirdparty/clearcommerce/
-						svn mv org/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java test/java/org/ofbiz/accounting/thirdparty/ideal/
-						svn mv org/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java test/java/org/ofbiz/accounting/thirdparty/securepay/
+						svn mv --parents org/ofbiz/accounting/thirdparty/clearcommerce/CCServicesTest.java test/java/org/ofbiz/accounting/thirdparty/clearcommerce/CCServicesTest.java
+						svn mv --parents org/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java test/java/org/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java
+						svn mv --parents org/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest.java test/java/org/ofbiz/accounting/thirdparty/securepay/SecurePayServiceTest
 					
 					elif [ $dir = 'product' ];
 					then
-						svn mv ShipmentScaleApplet.java main/java/
+						svn mv --parents ShipmentScaleApplet.java main/java/ShipmentScaleApplet.java
 
-						mkdir -p test/java/org/ofbiz/shipment/thirdparty/usps/
-						svn add test/java/org/ofbiz/shipment/thirdparty/usps/
-						svn mv org/ofbiz/shipment/thirdparty/usps/UspsServicesTests.java test/java/org/ofbiz/shipment/thirdparty/usps/
+						svn mv --parents org/ofbiz/shipment/thirdparty/usps/UspsServicesTests.java test/java/org/ofbiz/shipment/thirdparty/usps/UspsServicesTests.java
 					fi									
 
 					for test in $testdirs
 					do
-						test=$(echo $test | replace test '')
-
-						mkdir -p test/java/$test
-						svn add test/java/$test				
+						test=$(echo $test | replace test '')			
 	
 						for x in $(ls $test/test/)
 						do
@@ -103,12 +89,21 @@ cd $i
 						done
 						rm temp						
 
-						svn mv ${test}test/* test/java/${test}
-						svn rm -r ${test}test/
+						for file in $(find ${test}test -maxdepth 1 -type f -printf '%P\n')
+						do
+							svn mv --parents ${test}test/$file test/java/${test}/$file
+						done
+					
+						svn rm ${test}test
 				
 					done										
 
-					svn mv org/ main/java/
+					if ! [ -d main ];
+					then
+						mkdir -p main/java/
+						svn add main
+					fi
+					svn mv org/ main/java/				
 						
 					cd ..
 
@@ -150,9 +145,6 @@ cd $i
 						cat temp >testdef/securitytests.xml
 
 						sed 's,\.test\.,\.,g' <testdef/data/SecurityTestData.xml >temp
-						cat temp >testdef/data/SecurityTestData.xml
-
-						sed 's,org\.ofbiz\.securityext\.DaTest2\.groovy,test\.java\.org\.ofbiz\.securityext\.DaTest2\.groovy,g' <testdef/data/SecurityTestData.xml >temp
 						cat temp >testdef/data/SecurityTestData.xml
 
 					elif [ $dir = 'product' ];	
@@ -197,7 +189,7 @@ cd $i
 						sed 's,org/ofbiz/base/start/,main/java/org/ofbiz/base/start/,g' <src/main/java/org/ofbiz/base/start/Config.java >temp
 						cat temp >src/main/java/org/ofbiz/base/start/Config.java					
 					fi	
-	
+					
 					rm temp
 
 				elif [ $dir = 'documents' ];
